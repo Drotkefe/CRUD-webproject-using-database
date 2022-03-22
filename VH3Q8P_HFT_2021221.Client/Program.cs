@@ -36,7 +36,7 @@ namespace VH3Q8P_HFT_2021221.Client
 
             var result = httpService.Create(newBike);
 
-            if (result.IsSucces)
+            if (result.IsSuccess)
             {
                 Console.WriteLine("Creation was successfull");
             }
@@ -57,7 +57,7 @@ namespace VH3Q8P_HFT_2021221.Client
 
             result = httpService.Update(bikeForUpdate);
 
-            if (result.IsSucces)
+            if (result.IsSuccess)
             {
                 Console.WriteLine("Update was successfull.");
             }
@@ -73,7 +73,7 @@ namespace VH3Q8P_HFT_2021221.Client
             // Delete
             result = httpService.Delete(bikes.Last().Id);
 
-            if (result.IsSucces)
+            if (result.IsSuccess)
             {
                 Console.WriteLine("Delete was successfull.");
             }
@@ -125,7 +125,7 @@ namespace VH3Q8P_HFT_2021221.Client
 
             var rider_result = Rider_Services.Create(newRider);
 
-            if (rider_result.IsSucces)
+            if (rider_result.IsSuccess)
             {
                 Console.WriteLine("Creation was successfull");
             }
@@ -146,7 +146,7 @@ namespace VH3Q8P_HFT_2021221.Client
 
             rider_result = Rider_Services.Update(RiderForUpdate);
 
-            if (rider_result.IsSucces)
+            if (rider_result.IsSuccess)
             {
                 Console.WriteLine("Update was successfull.");
             }
@@ -162,7 +162,7 @@ namespace VH3Q8P_HFT_2021221.Client
             // Delete
             rider_result = Rider_Services.Delete(4);
 
-            if (rider_result.IsSucces)
+            if (rider_result.IsSuccess)
             {
                 Console.WriteLine("Delete was successfull.");
             }
@@ -197,7 +197,7 @@ namespace VH3Q8P_HFT_2021221.Client
 
             var manu_result = manu_Service.Create(newManu);
 
-            if (manu_result.IsSucces)
+            if (manu_result.IsSuccess)
             {
                 Console.WriteLine("Creation was successfull");
             }
@@ -219,7 +219,7 @@ namespace VH3Q8P_HFT_2021221.Client
 
             manu_result = manu_Service.Update(manuForUpdate);
 
-            if (manu_result.IsSucces)
+            if (manu_result.IsSuccess)
             {
                 Console.WriteLine("Update was successfull.");
             }
@@ -235,7 +235,7 @@ namespace VH3Q8P_HFT_2021221.Client
             // Delete
             manu_result = manu_Service.Delete(manus.Last().Id);
 
-            if (manu_result.IsSucces)
+            if (manu_result.IsSuccess)
             {
                 Console.WriteLine("Delete was successfull.");
             }

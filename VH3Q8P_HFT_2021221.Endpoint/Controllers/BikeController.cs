@@ -45,7 +45,7 @@ namespace VH3Q8P_HFT_2021221.Endpoint.Controllers
             }
             catch (Exception)
             {
-                result.IsSucces = false;
+                result.IsSuccess = false;
             }
             return result;
         }
@@ -62,7 +62,7 @@ namespace VH3Q8P_HFT_2021221.Endpoint.Controllers
             }
             catch (Exception)
             {
-                result.IsSucces = false;
+                result.IsSuccess = false;
             }
             return result;
         }
@@ -78,7 +78,7 @@ namespace VH3Q8P_HFT_2021221.Endpoint.Controllers
             }
             catch (Exception)
             {
-                result.IsSucces = false;
+                result.IsSuccess = false;
             }
             return result;
         }

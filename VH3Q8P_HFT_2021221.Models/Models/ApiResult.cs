@@ -8,10 +8,18 @@ namespace VH3Q8P_HFT_2021221.Models.Models
 {
     public class ApiResult
     {
-        public bool IsSucces { get; set; }
-        public ApiResult(bool isSucces)
+        public bool IsSuccess { get; set; }
+
+        public List<string> Messages { get; set; }
+
+        public ApiResult()
         {
-            IsSucces = isSucces;
+
+        }
+        public ApiResult(bool isSuccess, List<string> messages = null)
+        {
+            IsSuccess = isSuccess;
+            Messages = messages;
         }
 
     }
