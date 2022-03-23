@@ -49,18 +49,28 @@ namespace VH3Q8P_SG1_21_22_2.WpfClient.Models
             set { Set(ref riderId, value); }
         }
 
+        private bool fix;
+
+        public bool Fix
+        {
+            get { return fix; }
+            set { Set(ref fix, value); }
+        }
+
+
         public BikeModel()
         {
 
         }
 
-        public BikeModel(int id, string model_Name, int price, int brandId, int riderId)
+        public BikeModel(int id, string model_Name, int price, int brandId, int riderId,bool fix)
         {
             this.id = id;
             this.model_Name = model_Name;
             this.price = price;
             this.brandId = brandId;
             this.riderId = riderId;
+            this.fix = fix;
         }
 
         public BikeModel(BikeModel other)
@@ -70,6 +80,7 @@ namespace VH3Q8P_SG1_21_22_2.WpfClient.Models
             price = other.price;
             brandId = other.brandId;
             riderId = other.riderId;
+            fix = other.fix;
         }
     }
 }

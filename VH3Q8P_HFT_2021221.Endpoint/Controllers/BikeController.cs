@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using VH3Q8P_HFT_2021221.Logic.Interfaces;
 using VH3Q8P_HFT_2021221.Models.Models;
 using VH3Q8P_HFT_2021221.Models.Entities;
+using VH3Q8P_HFT_2021221.Models.DTOs;
 
 namespace VH3Q8P_HFT_2021221.Endpoint.Controllers
 {
@@ -36,16 +37,25 @@ namespace VH3Q8P_HFT_2021221.Endpoint.Controllers
         // POST api/Bike/Create
         [HttpPost]
         [ActionName("Create")]
-        public ApiResult Post(Bike bike)
+        public ApiResult Post(BikeDTO bike)
         {
             var result = new ApiResult(true);
             try
             {
-                bikeLogic.Create(bike);
+                bikeLogic.Create(new Bike()
+                {
+                    Id=bike.Id,
+                    BrandId=bike.BrandId,
+                    Model_Name=bike.Model_Name,
+                    Price=bike.Price,
+                    Fix=bike.Fix
+                }    
+                );
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result.IsSuccess = false;
+                result.Messages = new List<string>() { ex.Message };
             }
             return result;
         }
@@ -60,9 +70,10 @@ namespace VH3Q8P_HFT_2021221.Endpoint.Controllers
             {
                 bikeLogic.Update(bike);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result.IsSuccess = false;
+                result.Messages = new List<string>() { ex.Message };
             }
             return result;
         }
@@ -76,9 +87,10 @@ namespace VH3Q8P_HFT_2021221.Endpoint.Controllers
             {
                 bikeLogic.Delete(id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result.IsSuccess = false;
+                result.Messages = new List<string>() { ex.Message };
             }
             return result;
         }

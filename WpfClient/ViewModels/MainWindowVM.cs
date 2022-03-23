@@ -43,8 +43,8 @@ namespace WpfClient.ViewModels
 
             if (IsInDesignMode)
             {
-                Bikes.Add(new BikeModel(1, "bicó", 50, 1, 1));
-                Bikes.Add(new BikeModel(2, "bicóka", 150, 2, 2));
+                Bikes.Add(new BikeModel(1, "bicó", 50, 1, 1,true));
+                Bikes.Add(new BikeModel(2, "bicóka", 150, 2, 2,false));
             }
 
             LoadCommand = new RelayCommand(() =>
@@ -61,7 +61,7 @@ namespace WpfClient.ViewModels
             AddCommand = new RelayCommand(() => this.bikeHandlerService.AddBike(Bikes));
             ModifyCommand = new RelayCommand(() => this.bikeHandlerService.ModifyBike(Bikes, CurrentBike));
             DeleteCommand = new RelayCommand(() => this.bikeHandlerService.DeleteBike(Bikes, CurrentBike));
-            ViewCommand = new RelayCommand(() => this.bikeHandlerService.ViewCar(CurrentBike));
+            ViewCommand = new RelayCommand(() => this.bikeHandlerService.ViewBike(CurrentBike));
         }
 
         public MainWindowVM() : this(IsInDesignModeStatic ? null : ServiceLocator.Current.GetInstance<IBikeHandlerService>())

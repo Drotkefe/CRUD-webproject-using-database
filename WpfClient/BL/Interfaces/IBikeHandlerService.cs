@@ -8,10 +8,11 @@ namespace VH3Q8P_HFT_2021221.Models.BL.Interfaces
         void AddBike(IList<BikeModel> collection);
         void ModifyBike(IList<BikeModel> collection, BikeModel bike);
         void DeleteBike(IList<BikeModel> collection, BikeModel bike);
-        void ViewCar(BikeModel bike);
+        void ViewBike(BikeModel bike);
 
         IList<BikeModel> GetAll();
 
-        IList<BikeModel> GetAllBrands();
+        IList<ManuFactureModel> GetAllBrands();
+        IList<RiderModel> GetAllRiders();
     }
 }

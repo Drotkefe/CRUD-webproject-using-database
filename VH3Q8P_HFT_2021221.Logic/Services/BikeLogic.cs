@@ -24,7 +24,7 @@ namespace VH3Q8P_HFT_2021221.Logic.Services
         public Bike Create(Bike entity)
         {
             //Validate
-            var exist = _bikeRepository.ReadAll().Any(x => x.Id == entity.Id && x.Model_Name == entity.Model_Name && x.Price == entity.Price);
+            var exist = _bikeRepository.ReadAll().Any(x => x.Id == entity.Id && x.Model_Name == entity.Model_Name && x.Price == entity.Price && x.Fix==entity.Fix);
             if (entity.Model_Name==null)
             {
                 throw new NullReferenceException("Undefined entity create attempt");

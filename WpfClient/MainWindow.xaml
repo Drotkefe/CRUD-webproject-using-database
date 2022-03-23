@@ -3,25 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfClient"
+        xmlns:ViewModels="clr-namespace:WpfClient.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Window.Resources>
+        <ViewModels:MainWindowVM x:Key="VM"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource VM}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Label Content="Bicycle DataBase" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" FontSize="35"/>
-        <ListBox Grid.Row="1">
-            
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Id" Grid.Column="0" HorizontalAlignment="Center"/>
+            <Label Content="Model Name" Grid.Column="1" HorizontalAlignment="Center"/>
+            <Label Content="Price" Grid.Column="2" HorizontalAlignment="Center"/>
+            <Label Content="BrandId" Grid.Column="3" HorizontalAlignment="Center"/>
+            <Label Content="RiderId" Grid.Column="4" HorizontalAlignment="Center"/>
+        </Grid>
+        <ListBox ItemsSource="{Binding Bikes}" SelectedItem="{Binding CurrentBike}" Grid.Row="2" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="{Binding Id}" Grid.Column="0" HorizontalAlignment="Center"/>
+                        <Label Content="{Binding Model_name}" Grid.Column="1" HorizontalAlignment="Center"/>
+                        <Label Content="{Binding Price}" Grid.Column="2" HorizontalAlignment="Center"/>
+                        <Label Content="{Binding BrandID}" Grid.Column="3" HorizontalAlignment="Center"/>
+                        <Label Content="{Binding RiderID}" Grid.Column="4" HorizontalAlignment="Center"/>
+                       
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
-            <Button Background="Aqua" Content="Load" MinWidth="75" Margin=" 15" Command="" />
-            <Button Background="BurlyWood" Content="View" MinWidth="75" Margin=" 15" Command="" />
-            <Button Background="SlateGray" Content="Add" MinWidth="75" Margin=" 15" Command="" />
-            <Button Background="Khaki" Content="Modify" MinWidth="75" Margin=" 15" Command="" />
-            <Button Background="Thistle" Content="Delete" MinWidth="75" Margin=" 15" Command="" />
+        <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center">
+            <Button Background="Aqua" Content="Load" MinWidth="75" Margin=" 15" Command="{Binding LoadCommand}" />
+            <Button Background="BurlyWood" Content="View" MinWidth="75" Margin=" 15" Command="{Binding ViewCommand}" />
+            <Button Background="SlateGray" Content="Add" MinWidth="75" Margin=" 15" Command="{Binding AddCommand}" />
+            <Button Background="Khaki" Content="Modify" MinWidth="75" Margin=" 15" Command="{Binding ModifyCommand}" />
+            <Button Background="Thistle" Content="Delete" MinWidth="75" Margin=" 15" Command="{Binding DeleteCommand}" />
         </StackPanel>
     </Grid>
 </Window>

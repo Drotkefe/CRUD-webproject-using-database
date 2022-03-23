@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VH3Q8P_HFT_2021221.Models.BL.Interfaces;
 using VH3Q8P_HFT_2021221.Models.DTOs;
+using VH3Q8P_HFT_2021221.Models.Entities;
 using VH3Q8P_SG1_21_22_2.WpfClient.Infrastructure;
 using VH3Q8P_SG1_21_22_2.WpfClient.Models;
 
@@ -16,7 +17,19 @@ namespace VH3Q8P_SG1_21_22_2.WpfClient.BL.Implementation
         readonly IMessenger messenger;
         readonly IBikeEditorService editorService;
         readonly IBikeDisplayService bikeDisplayService;
-        HttpService httpService;
+        HttpService httpService_bike;
+        HttpService httpService_manu;
+        HttpService httpService_rider;
+
+        public BikeHandlerService(IMessenger messenger, IBikeEditorService editorService, IBikeDisplayService bikeDisplayService)
+        {
+            this.messenger = messenger;
+            this.editorService = editorService;
+            this.bikeDisplayService = bikeDisplayService;
+            httpService_bike = new HttpService("Bike", "http://localhost:26061/api/");
+            httpService_manu = new HttpService("Manufacture", "http://localhost:26061/api/");
+            httpService_rider = new HttpService("Rider", "http://localhost:26061/api/");
+        }
 
         public void AddBike(IList<BikeModel> collection)
         {
@@ -29,12 +42,13 @@ namespace VH3Q8P_SG1_21_22_2.WpfClient.BL.Implementation
 
                 if (newBike != null)
                 {
-                    var operationResult = httpService.Create(new BikeDTO()
+                    var operationResult = httpService_bike.Create(new BikeDTO()
                     {
                         BrandId = newBike.BrandID,
                         Model_Name = newBike.Model_name,
                         Price = newBike.Price,
-                        RiderId=newBike.RiderID
+                        RiderId = newBike.RiderID,
+                        Fix = newBike.Fix
                     });
 
                     bikeToEdit = newBike;
@@ -78,27 +92,91 @@ namespace VH3Q8P_SG1_21_22_2.WpfClient.BL.Implementation
 
         public void DeleteBike(IList<BikeModel> collection, BikeModel bike)
         {
-            throw new NotImplementedException();
+            if (bike != null)
+            {
+                var operationResult = httpService_bike.Delete(bike.Id);
+
+                if (operationResult.IsSuccess)
+                {
+                    RefreshCollectionFromServer(collection);
+                    SendMessage("Bike deletion was successful");
+                }
+                else
+                {
+                    SendMessage(operationResult.Messages.ToArray());
+                }
+            }
+            else
+            {
+                SendMessage("Bike deletion failed");
+            }
         }
 
         public IList<BikeModel> GetAll()
         {
-            throw new NotImplementedException();
+            var cars = httpService_bike.GetAll<Bike>();
+
+            return cars.Select(x => new BikeModel(x.Id,x.Model_Name,x.Price,x.BrandId,x.RiderId,x.Fix)).ToList();
         }
 
-        public IList<BikeModel> GetAllBrands()
+        public IList<ManuFactureModel> GetAllBrands()
         {
-            throw new NotImplementedException();
+            var brands = httpService_manu.GetAll<Manufacture>();
+
+            return brands.Select(x => new ManuFactureModel(x.Id,x.Name,x.Establishment_year,x.Income)).ToList();
         }
 
         public void ModifyBike(IList<BikeModel> collection, BikeModel bike)
         {
-            throw new NotImplementedException();
+            BikeModel bikeToEdit = bike;
+            bool operationFinished = false;
+
+            do
+            {
+                var editedBike = editorService.EditBike(bikeToEdit);
+
+                if (editedBike != null)
+                {
+                    var operationResult = httpService_bike.Update(new BikeDTO()
+                    {
+                        Id = bike.Id, // This prop cannot be changed
+                        BrandId = editedBike.BrandID,
+                        Model_Name = editedBike.Model_name,
+                        Price = editedBike.Price
+                    });
+
+                    bikeToEdit = editedBike;
+                    operationFinished = operationResult.IsSuccess;
+
+                    if (operationResult.IsSuccess)
+                    {
+                        RefreshCollectionFromServer(collection);
+                        SendMessage("Bike modification was successful");
+                    }
+                    else
+                    {
+                        SendMessage(operationResult.Messages.ToArray());
+                    }
+                }
+                else
+                {
+                    SendMessage("Bike modification has cancelled");
+                    operationFinished = true;
+                }
+            } while (!operationFinished);
+        }
+        public void ViewBike(BikeModel bike)
+        {
+            bikeDisplayService.BikeDisplay(bike);
         }
 
-        public void ViewCar(BikeModel bike)
+        public IList<RiderModel> GetAllRiders()
         {
-            throw new NotImplementedException();
+            var riders = httpService_rider.GetAll<Rider>();
+
+            return riders.Select(x => new RiderModel(x.Id, x.Name, x.Age)).ToList();
         }
     }
+
+        
 }

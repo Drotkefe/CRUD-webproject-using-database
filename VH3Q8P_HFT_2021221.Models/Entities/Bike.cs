@@ -19,6 +19,7 @@ namespace VH3Q8P_HFT_2021221.Models.Entities
         [MaxLength(25)]
         public string Model_Name { get; set; }
         public int Price { get; set; }
+        public bool Fix { get; set; }
         public int BrandId { get; set; }
         public int RiderId { get; set; }
         [JsonIgnore]
