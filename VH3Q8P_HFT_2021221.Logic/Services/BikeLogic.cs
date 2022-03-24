@@ -24,20 +24,28 @@ namespace VH3Q8P_HFT_2021221.Logic.Services
         public Bike Create(Bike entity)
         {
             //Validate
-            var exist = _bikeRepository.ReadAll().Any(x => x.Id == entity.Id && x.Model_Name == entity.Model_Name && x.Price == entity.Price && x.Fix==entity.Fix);
-            if (entity.Model_Name==null)
+            if (entity.BrandId == 0)
             {
-                throw new NullReferenceException("Undefined entity create attempt");
+                throw new ApplicationException("Please choose brand!");
             }
-            else
+
+            // TODO: check brand existance
+
+            if (String.IsNullOrWhiteSpace(entity.Model_Name))
             {
-                if (!exist)
-                {
-                    var result = _bikeRepository.Create(entity);
-                    return result;
-                }
-                throw new Exception("Already exists");
+                throw new ApplicationException("Model is required!");
             }
+
+            if (entity.Price < 0)
+            {
+                throw new ApplicationException("Price must be greater or equal to 0!");
+            }
+
+            var result = _bikeRepository.Create(entity);
+
+            // TODO: log
+
+            return result;
         }
 
         public void Delete(int id)
@@ -202,7 +210,7 @@ namespace VH3Q8P_HFT_2021221.Logic.Services
             }
             else
             {
-                throw new Exception("Does not exist");
+                throw new ApplicationException("Does not exist");
             }
 
 

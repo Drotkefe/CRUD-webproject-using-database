@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ViewModels="clr-namespace:WpfClient.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="WindowLoaded" Closing="WindowClose">
     <Window.Resources>
         <ViewModels:MainWindowVM x:Key="VM"/>
     </Window.Resources>
@@ -44,7 +44,7 @@
                         </Grid.ColumnDefinitions>
                         <Label Content="{Binding Id}" Grid.Column="0" HorizontalAlignment="Center"/>
                         <Label Content="{Binding Model_name}" Grid.Column="1" HorizontalAlignment="Center"/>
-                        <Label Content="{Binding Price}" Grid.Column="2" HorizontalAlignment="Center"/>
+                        <Label Content="{Binding Price}" Grid.Column="2" HorizontalAlignment="Center" ContentStringFormat="{}{0} $"/>
                         <Label Content="{Binding BrandID}" Grid.Column="3" HorizontalAlignment="Center"/>
                         <Label Content="{Binding RiderID}" Grid.Column="4" HorizontalAlignment="Center"/>
                        

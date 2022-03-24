@@ -10,9 +10,9 @@ namespace VH3Q8P_SG1_21_22_2.WpfClient
 {
     public class BikeDisplayService : IBikeDisplayService
     {
-        public void BikeDisplay(BikeModel car)
+        public void BikeDisplay(BikeModel bike)
         {
-            var window = new BikeEditorWindow(car, false);
+            var window = new BikeEditorWindow(bike, false);
 
             window.Show();
         }
