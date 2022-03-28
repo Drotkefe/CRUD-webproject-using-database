@@ -48,7 +48,8 @@ namespace VH3Q8P_HFT_2021221.Endpoint.Controllers
                     BrandId=bike.BrandId,
                     Model_Name=bike.Model_Name,
                     Price=bike.Price,
-                    Fix=bike.Fix
+                    Fix=bike.Fix,
+                    RiderId=bike.RiderId
                 }    
                 );
             }
@@ -63,18 +64,29 @@ namespace VH3Q8P_HFT_2021221.Endpoint.Controllers
         // PUT api/Bike/Update
         [HttpPut]
         [ActionName("Update")]
-        public ApiResult Put(Bike bike)
+        public ApiResult Put(BikeDTO bike)
         {
             var result = new ApiResult(true);
+
             try
             {
-                bikeLogic.Update(bike);
+                bikeLogic.Update(new Bike()
+                {
+                    Id = bike.Id,
+                    BrandId = bike.BrandId,
+                    RiderId = bike.RiderId,
+                    Model_Name = bike.Model_Name,
+                    Price = bike.Price,
+                    Fix = bike.Fix
+                    
+                });
             }
             catch (Exception ex)
             {
                 result.IsSuccess = false;
                 result.Messages = new List<string>() { ex.Message };
             }
+
             return result;
         }
 

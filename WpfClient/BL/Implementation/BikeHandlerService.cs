@@ -142,7 +142,10 @@ namespace VH3Q8P_SG1_21_22_2.WpfClient.BL.Implementation
                         Id = bike.Id, // This prop cannot be changed
                         BrandId = editedBike.BrandID,
                         Model_Name = editedBike.Model_name,
-                        Price = editedBike.Price
+                        Price = editedBike.Price,
+                        RiderId=editedBike.RiderID,
+                        Fix=editedBike.Fix
+                       
                     });
 
                     bikeToEdit = editedBike;
