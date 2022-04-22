@@ -50,7 +50,7 @@
                         <Label Content="{Binding Price}" Grid.Column="2" HorizontalAlignment="Center" ContentStringFormat="{}{0} $"/>
                         <Label Content="{Binding BrandID}" Grid.Column="3" HorizontalAlignment="Center"/>
                         <Label Content="{Binding RiderID}" Grid.Column="4" HorizontalAlignment="Center"/>
-                        <CheckBox IsChecked="{Binding Fix}" Grid.Column="5" HorizontalAlignment="Center"/>
+                        <CheckBox IsChecked="{Binding Fix}" Grid.Column="5" HorizontalAlignment="Center" IsEnabled="False"/>
 
                     </Grid>
                 </DataTemplate>

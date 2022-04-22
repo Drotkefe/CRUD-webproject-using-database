@@ -59,7 +59,7 @@ namespace VH3Q8P_SG1_21_22_2.WpfClient.BL.Implementation
                         //collection.Add(newCar);
                         RefreshCollectionFromServer(collection);
 
-                        SendMessage("Car add was successful");
+                        SendMessage("Bike add was successful");
                     }
                     else
                     {
@@ -68,7 +68,7 @@ namespace VH3Q8P_SG1_21_22_2.WpfClient.BL.Implementation
                 }
                 else
                 {
-                    SendMessage("Car add has cancelled");
+                    SendMessage("Bike add has cancelled");
                     operationFinished = true;
                 }
             } while (!operationFinished);
@@ -131,46 +131,60 @@ namespace VH3Q8P_SG1_21_22_2.WpfClient.BL.Implementation
             BikeModel bikeToEdit = bike;
             bool operationFinished = false;
 
-            do
+            if (bikeToEdit != null)
             {
-                var editedBike = editorService.EditBike(bikeToEdit);
-
-                if (editedBike != null)
+                do
                 {
-                    var operationResult = httpService_bike.Update(new BikeDTO()
-                    {
-                        Id = bike.Id, // This prop cannot be changed
-                        BrandId = editedBike.BrandID,
-                        Model_Name = editedBike.Model_name,
-                        Price = editedBike.Price,
-                        RiderId=editedBike.RiderID,
-                        Fix=editedBike.Fix
-                       
-                    });
+                    var editedBike = editorService.EditBike(bikeToEdit);
 
-                    bikeToEdit = editedBike;
-                    operationFinished = operationResult.IsSuccess;
-
-                    if (operationResult.IsSuccess)
+                    if (editedBike != null)
                     {
-                        RefreshCollectionFromServer(collection);
-                        SendMessage("Bike modification was successful");
+                        var operationResult = httpService_bike.Update(new BikeDTO()
+                        {
+                            Id = bike.Id, // This prop cannot be changed
+                            BrandId = editedBike.BrandID,
+                            Model_Name = editedBike.Model_name,
+                            Price = editedBike.Price,
+                            RiderId = editedBike.RiderID,
+                            Fix = editedBike.Fix
+
+                        });
+
+                        bikeToEdit = editedBike;
+                        operationFinished = operationResult.IsSuccess;
+
+                        if (operationResult.IsSuccess)
+                        {
+                            RefreshCollectionFromServer(collection);
+                            SendMessage("Bike modification was successful");
+                        }
+                        else
+                        {
+                            SendMessage(operationResult.Messages.ToArray());
+                        }
                     }
                     else
                     {
-                        SendMessage(operationResult.Messages.ToArray());
+                        SendMessage("Bike modification has cancelled");
+                        operationFinished = true;
                     }
-                }
-                else
-                {
-                    SendMessage("Bike modification has cancelled");
-                    operationFinished = true;
-                }
-            } while (!operationFinished);
+                } while (!operationFinished);
+            }
+            else
+            {
+                SendMessage("Bike modification has cancelled, there is no chosen bike");
+            }
         }
         public void ViewBike(BikeModel bike)
         {
-            bikeDisplayService.BikeDisplay(bike);
+            if (bike == null)
+            {
+                SendMessage("Bike View Failed, there is no chosen bike");
+            }
+            else
+            {
+                bikeDisplayService.BikeDisplay(bike);
+            }
         }
 
         public IList<RiderModel> GetAllRiders()
