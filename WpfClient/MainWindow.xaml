@@ -29,7 +29,7 @@
             <Label Content="Id" Grid.Column="0" HorizontalAlignment="Center"/>
             <Label Content="Model Name" Grid.Column="1" HorizontalAlignment="Center"/>
             <Label Content="Price" Grid.Column="2" HorizontalAlignment="Center"/>
-            <Label Content="BrandId" Grid.Column="3" HorizontalAlignment="Center"/>
+            <Label Content="ManufactureId" Grid.Column="3" HorizontalAlignment="Center"/>
             <Label Content="RiderId" Grid.Column="4" HorizontalAlignment="Center" />
             <Label Content="Fix?" Grid.Column="5" HorizontalAlignment="Center"/>
         </Grid>
