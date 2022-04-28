@@ -38,7 +38,7 @@
                             <td>{{ bike.model_Name }}</td>
                             <td>{{ bike.price }}</td>
                             <td>{{ bike.riderId }}</td>
-                            <td>{{ bike.fix }}</td>
+                            <td><input type="checkbox" v-model.number="bike.fix" disabled class="form-control" /></td>
                             <td style="width:20%;text-align:right;">
                                 <button class="btn btn-info" v-on:click="viewBike(bike)">View</button>
                                 <button class="btn btn-warning" v-on:click="editBike(bike)">Edit</button>
@@ -270,7 +270,7 @@
         </div>
         <div>
             <strong>Fix</strong><br />
-            <label>{{ bike.fix }}</label>
+            <input type="checkbox" v-model.number="bike.fix" disabled class="form-control"/>
         </div>
     </div>
 </script>
